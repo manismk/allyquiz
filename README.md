@@ -1,2 +1,2 @@
 # allyquiz
-Quiz app build using React, Typescript, chakra Ui
+Quiz app build using React, Typescript, chakra Ui (Under construction)
