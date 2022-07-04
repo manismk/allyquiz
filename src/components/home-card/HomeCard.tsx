@@ -1,6 +1,10 @@
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 
-export const HomeCard = () => {
+type HomeCardProps = {
+  clickHandler: React.MouseEventHandler<HTMLDivElement>;
+};
+
+export const HomeCard = ({ clickHandler }: HomeCardProps) => {
   return (
     <Flex
       flexDirection="column"
@@ -10,6 +14,7 @@ export const HomeCard = () => {
       borderRadius="10px"
       transition="0.5s transform"
       _hover={{ transform: "scale(0.95)" }}
+      onClick={clickHandler}
     >
       <Image
         src="https://jsquizz.netlify.app/asset/js.png"

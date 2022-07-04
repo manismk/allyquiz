@@ -15,7 +15,6 @@ export const App = () => (
       <Box m="1rem 2rem">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/rules" element={<Rules />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/result" element={<Result />} />
         </Routes>

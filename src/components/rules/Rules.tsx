@@ -3,19 +3,25 @@ import {
   Button,
   Heading,
   IconButton,
-  List,
   ListItem,
   OrderedList,
 } from "@chakra-ui/react";
 import { FaArrowLeft } from "react-icons/fa";
 
-export const Rules = () => {
+type RulesProp = {
+  selectedOption: string;
+  handleBack: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+export const Rules = ({ selectedOption, handleBack }: RulesProp) => {
+  console.log(selectedOption);
   return (
     <Box maxW="25rem" m="5rem auto" boxShadow="lg" borderRadius="10px" p="2rem">
       <IconButton
         aria-label="Back to home"
         pos="absolute"
         icon={<FaArrowLeft />}
+        onClick={handleBack}
       ></IconButton>
       <Heading textAlign="center">Rules</Heading>
       <OrderedList spacing="3" m="2rem 0">
