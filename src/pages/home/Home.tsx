@@ -1,5 +1,6 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { useState } from "react";
+import { useAppSelector } from "../../app/hooks";
 import { HomeCard } from "../../components/home-card/HomeCard";
 import { Rules } from "../../components/rules/Rules";
 
@@ -8,6 +9,9 @@ export const Home = () => {
     isResultShown: false,
     selectedOption: "",
   });
+
+  const state = useAppSelector((state) => state);
+  console.log(state);
   return (
     <>
       {!resultItems.isResultShown ? (
