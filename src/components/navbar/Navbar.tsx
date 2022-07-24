@@ -1,4 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { ColorModeSwitcher } from "../../ColorModeSwitcher";
 
 export const Navbar = () => {
@@ -13,9 +14,11 @@ export const Navbar = () => {
       w="100%"
       top="0"
     >
-      <Text fontWeight="600" fontSize="1.2rem">
-        A11y Quiz
-      </Text>
+      <Link to="/">
+        <Text fontWeight="600" fontSize="1.2rem">
+          A11y Quiz
+        </Text>
+      </Link>
       <ColorModeSwitcher justifySelf="flex-end" />
     </Flex>
   );

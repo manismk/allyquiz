@@ -11,7 +11,7 @@ export const Home = () => {
   });
 
   const state = useAppSelector((state) => state);
-  console.log(state);
+  console.log("initialState", state);
   return (
     <>
       {!resultItems.isResultShown ? (
@@ -33,7 +33,7 @@ export const Home = () => {
                 setResultitems((prev) => ({
                   ...prev,
                   isResultShown: true,
-                  selectedOption: "basic",
+                  selectedOption: "ally-basic",
                 }))
               }
             />
@@ -42,7 +42,7 @@ export const Home = () => {
                 setResultitems((prev) => ({
                   ...prev,
                   isResultShown: true,
-                  selectedOption: "pro",
+                  selectedOption: "ally-pro",
                 }))
               }
             />

@@ -10,11 +10,7 @@ export const ResultCard = () => {
         ducimus suscipit recusandae mollitia eos non facilis officia laboriosam
         fugit beatae. Blanditiis?
       </Text>
-      <Flex flexDirection="column" gap="0.5rem">
-        <QuizOption />
-        <QuizOption />
-        <QuizOption />
-      </Flex>
+      <Flex flexDirection="column" gap="0.5rem"></Flex>
     </Box>
   );
 };

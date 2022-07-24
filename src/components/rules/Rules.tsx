@@ -7,6 +7,9 @@ import {
   OrderedList,
 } from "@chakra-ui/react";
 import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
+import { startQuiz } from "../../features/quiz/quizSlice";
 
 type RulesProp = {
   selectedOption: string;
@@ -14,7 +17,14 @@ type RulesProp = {
 };
 
 export const Rules = ({ selectedOption, handleBack }: RulesProp) => {
-  console.log(selectedOption);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const startQuizHandler = () => {
+    dispatch(startQuiz(selectedOption));
+    navigate("/quiz");
+  };
+
   return (
     <Box maxW="25rem" m="5rem auto" boxShadow="lg" borderRadius="10px" p="2rem">
       <IconButton
@@ -41,6 +51,7 @@ export const Rules = ({ selectedOption, handleBack }: RulesProp) => {
           _hover={{
             bg: "primary.light",
           }}
+          onClick={startQuizHandler}
         >
           Start Quiz
         </Button>

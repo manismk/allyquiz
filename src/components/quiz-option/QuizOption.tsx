@@ -1,6 +1,16 @@
 import { Button } from "@chakra-ui/react";
 
-export const QuizOption = () => {
+type quizOptionProps = {
+  option: string;
+  isRight: Boolean;
+  clickHandler: Function;
+};
+
+export const QuizOption = ({
+  option,
+  isRight,
+  clickHandler,
+}: quizOptionProps) => {
   return (
     <Button
       whiteSpace="unset"
@@ -10,11 +20,9 @@ export const QuizOption = () => {
       bg="primary.light"
       _hover={{ bg: "primary.dark" }}
       color="black"
+      onClick={() => clickHandler(2)}
     >
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur soluta
-      officia doloremque blanditiis adipisci id ab recusandae possimus.
-      Consectetur natus ea expedita eligendi, quod dolorum exercitationem
-      tempora asperiores. Recusandae, libero.
+      {option}
     </Button>
   );
 };

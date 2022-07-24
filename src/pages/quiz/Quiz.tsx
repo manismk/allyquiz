@@ -1,11 +1,20 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
+import { useAppSelector } from "../../app/hooks";
 import { QuestionCard } from "../../components/question-card/QuestionCard";
 
 export const Quiz = () => {
+  const selectedOption = useAppSelector((state) => state.quiz.selectedQuiz);
+  if (selectedOption === "") {
+    return (
+      <Flex h="90vh" justifyContent="center" alignItems="center">
+        You landed in wrong place
+      </Flex>
+    );
+  }
   return (
     <Box>
       <Heading textAlign="center" mt="4rem">
-        A11y Basics quiz
+        {selectedOption} quiz
       </Heading>
       <QuestionCard />
     </Box>
