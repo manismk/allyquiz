@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
@@ -13,6 +14,44 @@ export const QuestionCard = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [timer, setTimer] = useState(30);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer((time) => {
+        if (time <= 0) {
+          clearInterval(interval);
+          console.log("in", time);
+          const questionNo =
+            currentQuestion?.questionNo && currentQuestion?.questionNo;
+          const correctOptionNo = currentQuestion?.options.find(
+            (option) => option.isRight
+          )?.optionNo;
+          dispatch(
+            quizAnswerHandler({
+              questionNo,
+              userSelecetedOptionNo: 0,
+              correctOptionNo,
+              isUserChoiceRight: false,
+            })
+          );
+          if (questionNo && questionNo <= 4) {
+            dispatch(moveToNextquestion(questionNo));
+          } else {
+            navigate("/result");
+          }
+          return 30;
+        } else {
+          return time - 1;
+        }
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [currentQuestion]);
+
+  useEffect(() => {
+    setTimer(30);
+  }, [currentQuestion]);
 
   const answerClickHandler = (userSelecetedOptionNo: number) => {
     const questionNo =
@@ -52,7 +91,7 @@ export const QuestionCard = () => {
           borderColor="primary.dark"
           fontSize="0.9rem"
         >
-          30
+          {timer}
         </Text>
         <Button
           variant="outline"
