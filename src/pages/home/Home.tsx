@@ -1,17 +1,20 @@
 import { Flex, Heading } from "@chakra-ui/react";
-import { useState } from "react";
-import { useAppSelector } from "../../app/hooks";
+import { useEffect, useState } from "react";
+import { useAppDispatch } from "../../app/hooks";
 import { HomeCard } from "../../components/home-card/HomeCard";
 import { Rules } from "../../components/rules/Rules";
+import { quitQuiz } from "../../features/quiz/quizSlice";
 
 export const Home = () => {
   const [resultItems, setResultitems] = useState({
     isResultShown: false,
     selectedOption: "",
   });
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(quitQuiz());
+  }, []);
 
-  const state = useAppSelector((state) => state);
-  console.log("initialState", state);
   return (
     <>
       {!resultItems.isResultShown ? (

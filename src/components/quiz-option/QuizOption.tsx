@@ -4,12 +4,14 @@ type quizOptionProps = {
   option: string;
   isRight: Boolean;
   clickHandler: Function;
+  optionNo: number;
 };
 
 export const QuizOption = ({
   option,
   isRight,
   clickHandler,
+  optionNo,
 }: quizOptionProps) => {
   return (
     <Button
@@ -20,7 +22,7 @@ export const QuizOption = ({
       bg="primary.light"
       _hover={{ bg: "primary.dark" }}
       color="black"
-      onClick={() => clickHandler(2)}
+      onClick={() => clickHandler(optionNo)}
     >
       {option}
     </Button>

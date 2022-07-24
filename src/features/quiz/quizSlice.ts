@@ -1,22 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { questionType, Quizes, quizesType, quizType } from "../../data/quiz";
 
+type userAnswerType = {
+  questionNo: number;
+  userSelecetedOptionNo: number;
+  isUserChoiceRight: Boolean;
+  correctOptionNo: number;
+};
+
+type userSelectionType = {
+  userAnswers: userAnswerType[];
+  userSelectedQuiz: string;
+};
+
 type initialStateType = {
   quizes: quizesType;
   selectedQuiz: string;
-  userSelection: {};
-  currentQuiz: quizType | undefined;
-  currentQuestion: questionType | undefined;
-  currentQuizQuestions: questionType[] | undefined;
+  userSelection: userSelectionType;
+  currentQuiz: quizType | null;
+  currentQuestion: questionType | null;
+  currentQuizQuestions: questionType[] | null;
 };
 
 const initialState: initialStateType = {
   quizes: Quizes,
   selectedQuiz: "",
-  userSelection: {},
-  currentQuiz: undefined,
-  currentQuizQuestions: undefined,
-  currentQuestion: undefined,
+  userSelection: { userAnswers: [], userSelectedQuiz: "" },
+  currentQuiz: null,
+  currentQuizQuestions: null,
+  currentQuestion: null,
 };
 
 export const quizeSlice = createSlice({
@@ -28,9 +40,10 @@ export const quizeSlice = createSlice({
         (curQuiz) => curQuiz.name === payload
       );
       state.selectedQuiz = payload;
-      state.currentQuiz = quiz;
-      state.currentQuizQuestions = quiz?.questions;
-      state.currentQuestion = quiz?.questions[0];
+      state.currentQuiz = quiz || null;
+      state.currentQuizQuestions = quiz?.questions || null;
+      state.currentQuestion = quiz?.questions[0] || null;
+      state.userSelection.userSelectedQuiz = payload;
     },
 
     quitQuiz: (state) => {
@@ -42,13 +55,24 @@ export const quizeSlice = createSlice({
     },
 
     quizAnswerHandler: (state, { payload }) => {
-      state.currentQuestion = state.currentQuizQuestions?.find(
-        (ques) => ques.questionNo === payload
-      );
+      state.userSelection.userAnswers?.push({
+        questionNo: payload.questionNo,
+        correctOptionNo: payload.correctOptionNo,
+        isUserChoiceRight: payload.isUserChoiceRight,
+        userSelecetedOptionNo: payload.userSelecetedOptionNo,
+      });
+    },
+
+    moveToNextquestion: (state, { payload }) => {
+      state.currentQuestion =
+        state.currentQuizQuestions?.find(
+          (ques) => ques.questionNo === payload + 1
+        ) || null;
     },
   },
 });
 
-export const { startQuiz, quitQuiz, quizAnswerHandler } = quizeSlice.actions;
+export const { startQuiz, quitQuiz, quizAnswerHandler, moveToNextquestion } =
+  quizeSlice.actions;
 
 export default quizeSlice.reducer;

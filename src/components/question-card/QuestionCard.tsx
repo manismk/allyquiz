@@ -1,18 +1,39 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { quitQuiz, quizAnswerHandler } from "../../features/quiz/quizSlice";
+import {
+  moveToNextquestion,
+  quitQuiz,
+  quizAnswerHandler,
+} from "../../features/quiz/quizSlice";
 import { QuizOption } from "../quiz-option/QuizOption";
 
 export const QuestionCard = () => {
   const currentQuestion = useAppSelector((state) => state.quiz.currentQuestion);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const answerClickHandler = (quesNo: number) => {
-    const nextQuestion =
-      currentQuestion?.questionNo && currentQuestion?.questionNo + 1;
-    dispatch(quizAnswerHandler(nextQuestion));
+  const answerClickHandler = (userSelecetedOptionNo: number) => {
+    const questionNo =
+      currentQuestion?.questionNo && currentQuestion?.questionNo;
+    const correctOptionNo = currentQuestion?.options.find(
+      (option) => option.isRight
+    )?.optionNo;
+    const isUserChoiceRight = correctOptionNo === userSelecetedOptionNo;
+    dispatch(
+      quizAnswerHandler({
+        questionNo,
+        userSelecetedOptionNo,
+        correctOptionNo,
+        isUserChoiceRight,
+      })
+    );
+    if (questionNo && questionNo <= 4) {
+      dispatch(moveToNextquestion(questionNo));
+    } else {
+      navigate("/result");
+    }
   };
 
   return (
@@ -57,6 +78,7 @@ export const QuestionCard = () => {
               key={index}
               option={option.option}
               isRight={option.isRight}
+              optionNo={option.optionNo}
               clickHandler={answerClickHandler}
             />
           );
