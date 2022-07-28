@@ -15,9 +15,15 @@ export const ResultCard = () => {
         );
         return (
           <Box boxShadow="lg" p="2rem" key={usrSel.questionNo}>
-            <Text p="1rem 0">
-              {`${currQuestion?.questionNo}. ${currQuestion?.question}`}
+            <Text p="1rem 0" as="span">
+              {`${currQuestion?.questionNo}. ${currQuestion?.question}  `}
             </Text>
+
+            {usrSel.userSelecetedOptionNo === 0 && (
+              <Text as="span" color="red.500" fontWeight="bold">
+                (Not Answered)
+              </Text>
+            )}
             <Flex flexDirection="column" gap="0.5rem">
               {currQuestion?.options.map((currOpt) => {
                 return (
