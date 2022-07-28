@@ -1,4 +1,11 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  CircularProgressLabel,
+  Flex,
+  Text,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -9,49 +16,58 @@ import {
 } from "../../features/quiz/quizSlice";
 import { QuizOption } from "../quiz-option/QuizOption";
 
+const useCountdown = (countDownTime = 30) => {
+  const [countDown, setCountDown] = useState(countDownTime);
+
+  return countDown;
+};
+
 export const QuestionCard = () => {
   const currentQuestion = useAppSelector((state) => state.quiz.currentQuestion);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [border, setBorder] = useState(100);
   const [timer, setTimer] = useState(30);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimer((time) => {
-        if (time <= 0) {
-          clearInterval(interval);
-          console.log("in", time);
-          const questionNo =
-            currentQuestion?.questionNo && currentQuestion?.questionNo;
-          const correctOptionNo = currentQuestion?.options.find(
-            (option) => option.isRight
-          )?.optionNo;
-          dispatch(
-            quizAnswerHandler({
-              questionNo,
-              userSelecetedOptionNo: 0,
-              correctOptionNo,
-              isUserChoiceRight: false,
-            })
-          );
-          if (questionNo && questionNo <= 4) {
-            dispatch(moveToNextquestion(questionNo));
-          } else {
-            navigate("/result");
-          }
-          return 30;
-        } else {
-          return time - 1;
-        }
-      });
+      setTimer((prev) => prev - 1);
     }, 1000);
+
     return () => clearInterval(interval);
-  }, [currentQuestion]);
+  }, [timer]);
+
+  useEffect(() => {
+    if (timer === 0) {
+      const questionNo =
+        currentQuestion?.questionNo && currentQuestion?.questionNo;
+      const correctOptionNo = currentQuestion?.options.find(
+        (option) => option.isRight
+      )?.optionNo;
+      dispatch(
+        quizAnswerHandler({
+          questionNo,
+          userSelecetedOptionNo: 0,
+          correctOptionNo,
+          isUserChoiceRight: false,
+        })
+      );
+      if (questionNo && questionNo <= 4) {
+        dispatch(moveToNextquestion(questionNo));
+      } else {
+        navigate("/result", { replace: true });
+      }
+    }
+  }, [timer]);
 
   useEffect(() => {
     setTimer(30);
   }, [currentQuestion]);
+
+  useEffect(() => {
+    setBorder((timer / 30) * 100);
+  }, [timer]);
 
   const answerClickHandler = (userSelecetedOptionNo: number) => {
     const questionNo =
@@ -71,7 +87,7 @@ export const QuestionCard = () => {
     if (questionNo && questionNo <= 4) {
       dispatch(moveToNextquestion(questionNo));
     } else {
-      navigate("/result");
+      navigate("/result", { replace: true });
     }
   };
 
@@ -81,18 +97,9 @@ export const QuestionCard = () => {
         <Text>
           Question: <Text as="b">{currentQuestion?.questionNo}/5</Text>
         </Text>
-        <Text
-          borderRadius="50%"
-          p="3px"
-          w="2rem"
-          h="2rem"
-          textAlign="center"
-          border="3px solid"
-          borderColor="primary.dark"
-          fontSize="0.9rem"
-        >
-          {timer}
-        </Text>
+        <CircularProgress value={border} color="primary.dark" thickness="7px">
+          <CircularProgressLabel fontSize="16px">{timer}</CircularProgressLabel>
+        </CircularProgress>
         <Button
           variant="outline"
           size="sm"
