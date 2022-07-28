@@ -1,6 +1,6 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { HomeCard } from "../../components/home-card/HomeCard";
 import { Rules } from "../../components/rules/Rules";
 import { quitQuiz } from "../../features/quiz/quizSlice";
@@ -10,6 +10,7 @@ export const Home = () => {
     isResultShown: false,
     selectedOption: "",
   });
+  const quizes = useAppSelector((state) => state.quiz.quizes);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(quitQuiz());
@@ -31,24 +32,19 @@ export const Home = () => {
             justifyContent="center"
             flexWrap="wrap"
           >
-            <HomeCard
-              clickHandler={() =>
-                setResultitems((prev) => ({
-                  ...prev,
-                  isResultShown: true,
-                  selectedOption: "ally-basic",
-                }))
-              }
-            />
-            <HomeCard
-              clickHandler={() =>
-                setResultitems((prev) => ({
-                  ...prev,
-                  isResultShown: true,
-                  selectedOption: "ally-pro",
-                }))
-              }
-            />
+            {quizes.quiz.map((curQuiz) => (
+              <HomeCard
+                quiz={curQuiz}
+                key={curQuiz.name}
+                clickHandler={() =>
+                  setResultitems((prev) => ({
+                    ...prev,
+                    isResultShown: true,
+                    selectedOption: `${curQuiz.name}`,
+                  }))
+                }
+              />
+            ))}
           </Flex>
         </>
       ) : (

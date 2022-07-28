@@ -1,10 +1,12 @@
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { quizType } from "../../data/quiz";
 
 type HomeCardProps = {
   clickHandler: React.MouseEventHandler<HTMLDivElement>;
+  quiz: quizType;
 };
 
-export const HomeCard = ({ clickHandler }: HomeCardProps) => {
+export const HomeCard = ({ clickHandler, quiz }: HomeCardProps) => {
   return (
     <Flex
       flexDirection="column"
@@ -24,10 +26,10 @@ export const HomeCard = ({ clickHandler }: HomeCardProps) => {
       />
       <Box p="1rem">
         <Heading as="h4" size="lg">
-          Ally bascis
+          {quiz.spacedName}
         </Heading>
         <Text p="0.5rem 0" lineHeight="1.2">
-          Take the test to test your accessbility basics knowledge
+          Take the test to test your accessbility {quiz.shortName} knowledge
         </Text>
         <Text p="0.25rem 0" lineHeight="1.2" fontWeight="600">
           5 Questions
