@@ -13,6 +13,8 @@ export type questionType = {
 export type quizType = {
   name: string;
   path: string;
+  spacedName: string;
+  shortName: string;
   questions: questionType[];
 };
 
@@ -25,6 +27,8 @@ export const Quizes: quizesType = {
     {
       name: "ally-basic",
       path: "/ally-basic",
+      spacedName: "Ally Basic",
+      shortName: "basic",
       questions: [
         {
           questionNo: 1,
@@ -161,6 +165,8 @@ export const Quizes: quizesType = {
     {
       name: "ally-pro",
       path: "/ally-pro",
+      shortName: "pro",
+      spacedName: "Ally Pro",
       questions: [
         {
           questionNo: 1,
