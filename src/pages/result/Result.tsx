@@ -16,7 +16,7 @@ export const Result = () => {
       3
     );
     setResultPercent((rightCount / 5) * 100);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   if (selectedOption === "") {
     return (
       <Flex h="90vh" justifyContent="center" alignItems="center">

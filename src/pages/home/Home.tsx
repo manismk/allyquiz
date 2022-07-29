@@ -14,7 +14,7 @@ export const Home = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(quitQuiz());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

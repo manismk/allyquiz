@@ -16,12 +16,6 @@ import {
 } from "../../features/quiz/quizSlice";
 import { QuizOption } from "../quiz-option/QuizOption";
 
-const useCountdown = (countDownTime = 30) => {
-  const [countDown, setCountDown] = useState(countDownTime);
-
-  return countDown;
-};
-
 export const QuestionCard = () => {
   const currentQuestion = useAppSelector((state) => state.quiz.currentQuestion);
 
@@ -59,7 +53,7 @@ export const QuestionCard = () => {
         navigate("/result", { replace: true });
       }
     }
-  }, [timer]);
+  }, [timer]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setTimer(30);
