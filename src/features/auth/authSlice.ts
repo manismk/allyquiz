@@ -1,6 +1,4 @@
-import { createStandaloneToast } from "@chakra-ui/react";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { FirebaseError } from "firebase/app";
 import { GoogleAuthProvider, signInWithPopup, User } from "firebase/auth";
 import { auth } from "../../firebase";
 import { NavigateFunction, Location } from "react-router-dom";
@@ -26,9 +24,9 @@ export const handleGoogleSignIn = createAsyncThunk(
     const from = locationState?.from?.pathname || "/";
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
+      await signInWithPopup(auth, provider);
       navigate(from, { replace: true });
-    } catch (error: FirebaseError | any) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue(`${error.code}`);
     }
   }

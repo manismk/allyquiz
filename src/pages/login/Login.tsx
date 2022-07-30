@@ -30,7 +30,7 @@ export const Login = () => {
         position: "bottom-left",
       });
     }
-  }, [loginError]);
+  }, [loginError]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Box
