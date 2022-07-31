@@ -1,15 +1,16 @@
 import {
   Avatar,
-  Button,
   Flex,
   Icon,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverTrigger,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { ColorModeSwitcher } from "../../ColorModeSwitcher";
@@ -39,49 +40,44 @@ export const Navbar = () => {
       <Flex alignItems="center" gap="1rem">
         <ColorModeSwitcher />
         {user ? (
-          <Flex flexDirection="column" alignItems="center">
-            <Popover>
-              <PopoverTrigger>
-                <Button
-                  p="0"
-                  minW="unset"
-                  h="unset"
-                  background="transparent"
-                  _hover={{ background: "transparent" }}
-                >
-                  <Avatar
-                    size="sm"
-                    name={user.displayName || undefined}
-                    src={user.photoURL || undefined}
-                  />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent w="6.5rem">
-                <PopoverArrow />
-                <PopoverBody>
-                  <Button
-                    background="primary.light"
-                    _hover={{ background: "primary.light" }}
-                    onClick={() => {
-                      signOut(auth)
-                        .then(() => {
-                          // Sign-out successful.
-                        })
-                        .catch((error) => {});
-                    }}
-                  >
-                    Logout
-                  </Button>
-                </PopoverBody>
-              </PopoverContent>
-            </Popover>
-          </Flex>
+          <Menu>
+            <MenuButton
+              p="2"
+              transition="all 0.2s"
+              as={IconButton}
+              background="primary.light"
+              _hover={{ backgroundColor: "primary.light" }}
+              rightIcon={<ChevronDownIcon />}
+            >
+              <Avatar
+                size="sm"
+                name={user.displayName || undefined}
+                src={user.photoURL || undefined}
+              />
+            </MenuButton>
+
+            <MenuList>
+              <MenuItem
+                onClick={() => {
+                  signOut(auth)
+                    .then(() => {
+                      // Sign-out successful.
+                    })
+                    .catch((error) => {});
+                }}
+              >
+                Logout
+              </MenuItem>
+            </MenuList>
+          </Menu>
         ) : (
-          <Link to="/login">
-            <Flex flexDirection="column" alignItems="center">
-              <Icon as={BiLogIn} fontSize="2rem" />
-            </Flex>
-          </Link>
+          <Tooltip label="Login" hasArrow>
+            <Link to="/login">
+              <Flex flexDirection="column" alignItems="center">
+                <Icon as={BiLogIn} fontSize="2rem" />
+              </Flex>
+            </Link>
+          </Tooltip>
         )}
       </Flex>
     </Flex>
