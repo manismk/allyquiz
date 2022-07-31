@@ -10,7 +10,6 @@ import {
   Th,
   Td,
   Thead,
-  Tooltip,
   Text,
   Spinner,
 } from "@chakra-ui/react";
@@ -67,7 +66,7 @@ export const Profile = () => {
         setError("error");
       }
     })();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return (

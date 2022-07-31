@@ -4,12 +4,12 @@ import { auth } from "../../firebase";
 import { NavigateFunction, Location } from "react-router-dom";
 
 type initialStateType = {
-  user: User | undefined;
+  user: User | null | false;
   loginLoading: boolean;
   error: string;
 };
 const initialState: initialStateType = {
-  user: undefined,
+  user: null,
   loginLoading: false,
   error: "",
 };

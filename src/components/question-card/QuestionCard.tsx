@@ -14,14 +14,12 @@ import {
   quitQuiz,
   quizAnswerHandler,
 } from "../../features/quiz/quizSlice";
-import { addScore } from "../../services/addScore";
-import { calculateScores } from "../../utils/calculateScore";
+
 import { QuizOption } from "../quiz-option/QuizOption";
 
 export const QuestionCard = () => {
   const currentQuestion = useAppSelector((state) => state.quiz.currentQuestion);
-  const userSelection = useAppSelector((state) => state.quiz.userSelection);
-  const { user } = useAppSelector((state) => state.auth);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [border, setBorder] = useState(100);
@@ -53,8 +51,6 @@ export const QuestionCard = () => {
       if (questionNo && questionNo <= 4) {
         dispatch(moveToNextquestion(questionNo));
       } else {
-        const scores = calculateScores(userSelection);
-        addScore(scores, userSelection, user!);
         navigate("/result", { replace: true });
       }
     }
@@ -86,8 +82,6 @@ export const QuestionCard = () => {
     if (questionNo && questionNo <= 4) {
       dispatch(moveToNextquestion(questionNo));
     } else {
-      const scores = calculateScores(userSelection);
-      addScore(scores, userSelection, user!);
       navigate("/result", { replace: true });
     }
   };

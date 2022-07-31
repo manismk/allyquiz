@@ -6,7 +6,7 @@ export const PrivateRoute = () => {
 
   const location = useLocation();
 
-  if (!user) {
+  if (user === false) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
   return <Outlet />;
