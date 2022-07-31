@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { questionType, Quizes, quizesType, quizType } from "../../data/quiz";
 
 type userAnswerType = {

@@ -31,6 +31,7 @@ export const Navbar = () => {
       pos="sticky"
       w="100%"
       top="0"
+      zIndex="5"
     >
       <Link to="/">
         <Text fontWeight="600" fontSize="1.2rem">
@@ -68,6 +69,9 @@ export const Navbar = () => {
               >
                 Logout
               </MenuItem>
+              <Link to={`/user/${user.uid}`}>
+                <MenuItem>My profile</MenuItem>
+              </Link>
             </MenuList>
           </Menu>
         ) : (
