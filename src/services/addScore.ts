@@ -20,7 +20,7 @@ export const addScore = async (
   try {
     const scoreRef = await addDoc(collection(db, "scores"), {
       score: score,
-      uid: user?.uid,
+      user: { uid: user.uid, name: user.displayName, photoUrl: user.photoURL },
       timeTaken: Date.now(),
       quiz: {
         type: userSelection.userSelectedQuiz,
