@@ -19,7 +19,7 @@ export const HomeCard = ({ clickHandler, quiz }: HomeCardProps) => {
       onClick={clickHandler}
     >
       <Image
-        src="https://jsquizz.netlify.app/asset/js.png"
+        src={`${process.env.PUBLIC_URL}/assets/${quiz.name}.png`}
         alt=""
         borderTopLeftRadius="10px"
         borderTopRightRadius="10px"
@@ -32,7 +32,7 @@ export const HomeCard = ({ clickHandler, quiz }: HomeCardProps) => {
           Take the test to test your accessbility {quiz.shortName} knowledge
         </Text>
         <Text p="0.25rem 0" lineHeight="1.2" fontWeight="600">
-          5 Questions
+          {quiz.questions.length} Questions
         </Text>
       </Box>
     </Flex>
