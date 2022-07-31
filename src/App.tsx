@@ -8,6 +8,7 @@ import { PrivateRoute } from "./components/private-route/PrivateRoute";
 import { setUser } from "./features/auth/authSlice";
 import { auth } from "./firebase";
 import { Home } from "./pages/home/Home";
+import { Leaderboard } from "./pages/leaderboard/Leaderboard";
 import { Login } from "./pages/login/Login";
 import { Profile } from "./pages/profile/Profile";
 import { Quiz } from "./pages/quiz/Quiz";
@@ -39,6 +40,7 @@ export const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user/:userId" element={<Profile />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
             <Route element={<PrivateRoute />}>
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/result" element={<Result />} />

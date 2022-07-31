@@ -58,6 +58,12 @@ export const Navbar = () => {
             </MenuButton>
 
             <MenuList>
+              <Link to={`/leaderboard`}>
+                <MenuItem>Leaderboard</MenuItem>
+              </Link>
+              <Link to={`/user/${user.uid}`}>
+                <MenuItem>My profile</MenuItem>
+              </Link>
               <MenuItem
                 onClick={() => {
                   signOut(auth)
@@ -69,9 +75,6 @@ export const Navbar = () => {
               >
                 Logout
               </MenuItem>
-              <Link to={`/user/${user.uid}`}>
-                <MenuItem>My profile</MenuItem>
-              </Link>
             </MenuList>
           </Menu>
         ) : (
