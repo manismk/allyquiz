@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { questionType, Quizes, quizesType, quizType } from "../../data/quiz";
 
 type userAnswerType = {
@@ -8,9 +8,10 @@ type userAnswerType = {
   correctOptionNo: number;
 };
 
-type userSelectionType = {
+export type userSelectionType = {
   userAnswers: userAnswerType[];
   userSelectedQuiz: string;
+  userSelectedQuizName: string;
 };
 
 type initialStateType = {
@@ -25,7 +26,11 @@ type initialStateType = {
 const initialState: initialStateType = {
   quizes: Quizes,
   selectedQuiz: "",
-  userSelection: { userAnswers: [], userSelectedQuiz: "" },
+  userSelection: {
+    userAnswers: [],
+    userSelectedQuiz: "",
+    userSelectedQuizName: "",
+  },
   currentQuiz: null,
   currentQuizQuestions: null,
   currentQuestion: null,
@@ -44,6 +49,7 @@ export const quizeSlice = createSlice({
       state.currentQuizQuestions = quiz?.questions || null;
       state.currentQuestion = quiz?.questions[0] || null;
       state.userSelection.userSelectedQuiz = payload;
+      state.userSelection.userSelectedQuizName = quiz?.spacedName || "";
     },
 
     quitQuiz: (state) => {

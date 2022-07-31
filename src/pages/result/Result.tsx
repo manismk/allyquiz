@@ -2,6 +2,7 @@ import { Box, Flex, Heading } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { ResultCard } from "../../components/result-card/ResultCard";
+import { calculateScores } from "../../utils/calculateScore";
 
 export const Result = () => {
   const selectedOption = useAppSelector((state) => state.quiz.selectedQuiz);
@@ -10,12 +11,8 @@ export const Result = () => {
   const [resultPercent, setResultPercent] = useState(0);
 
   useEffect(() => {
-    let rightCount = 0;
-    userSelection.userAnswers.map(
-      (usrSel) => (usrSel.isUserChoiceRight ? rightCount++ : ""),
-      3
-    );
-    setResultPercent((rightCount / 5) * 100);
+    const score = calculateScores(userSelection);
+    setResultPercent(score);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   if (selectedOption === "") {
     return (
