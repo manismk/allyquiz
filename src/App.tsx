@@ -1,7 +1,7 @@
 import { ChakraProvider, Box } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 
 import { Navbar } from "./components/navbar/Navbar";
@@ -20,7 +20,6 @@ import { calculateScores } from "./utils/calculateScore";
 
 export const App = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const userSelection = useAppSelector((state) => state.quiz.userSelection);
 
   const { user } = useAppSelector((state) => state.auth);
@@ -51,11 +50,11 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/user/:userId" element={<Profile />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
             <Route element={<PrivateRoute />}>
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/result" element={<Result />} />
+              <Route path="/user/:userId" element={<Profile />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
             </Route>
           </Routes>
         </Box>
