@@ -13,7 +13,13 @@ import {
   Spinner,
   Avatar,
 } from "@chakra-ui/react";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -48,7 +54,11 @@ export const Leaderboard = () => {
     let unsubscribe: Function;
     try {
       setLoading(true);
-      const q = query(collection(db, "scores"), orderBy("score", "desc"));
+      const q = query(
+        collection(db, "scores"),
+        where("score", ">=", 60),
+        orderBy("score", "desc")
+      );
       unsubscribe = onSnapshot(q, (querySnapshot) => {
         const allScores: scoreType[] = [];
         querySnapshot.forEach((doc) => {
