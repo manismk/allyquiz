@@ -29,7 +29,6 @@ export const App = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         dispatch(setUser(JSON.parse(JSON.stringify(user))));
-        navigate("/");
       } else {
         dispatch(setUser(false));
       }
