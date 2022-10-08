@@ -67,7 +67,7 @@ export const Profile = () => {
         setError("error");
       }
     })();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [userId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return (
