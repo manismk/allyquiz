@@ -23,6 +23,7 @@ export const QuizOption = ({
       _hover={{ bg: "primary.dark" }}
       color="black"
       onClick={() => clickHandler(optionNo)}
+      textTransform="capitalize"
     >
       {option}
     </Button>

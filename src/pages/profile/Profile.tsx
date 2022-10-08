@@ -12,6 +12,7 @@ import {
   Thead,
   Text,
   Spinner,
+  Tooltip,
 } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
@@ -113,20 +114,28 @@ export const Profile = () => {
             <Table variant="simple">
               <Thead>
                 <Tr>
-                  <Th>S.No</Th>
-                  <Th>Test Name</Th>
-                  <Th>Score</Th>
-                  <Th>Test Taken Time</Th>
+                  <Th textAlign="center">S.No</Th>
+                  <Th textAlign="center">Test Name</Th>
+                  <Th textAlign="center">Score</Th>
+                  <Th textAlign="center">Test Taken Time</Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {userData.tests.map((test, index) => (
                   <Tr key={test.sid}>
-                    <Td>{index + 1}</Td>
-                    <Td>{test.quiz.name}</Td>
-                    <Td>{test.score}</Td>
-                    <Td>
-                      {moment(test.timeTaken).format("DD/MM/YY,h:mm:ss a")}
+                    <Td textAlign="center">{index + 1}</Td>
+                    <Td textAlign="center">{test.quiz.name}</Td>
+                    <Td textAlign="center">{test.score}</Td>
+                    <Td textAlign="center">
+                      <Tooltip
+                        label={moment(test.timeTaken).format(
+                          "DD/MM/YY,h:mm:ss a"
+                        )}
+                        hasArrow
+                        placement="top"
+                      >
+                        <Box>{moment(test.timeTaken).format("DD-MMM-YY")}</Box>
+                      </Tooltip>
                     </Td>
                   </Tr>
                 ))}

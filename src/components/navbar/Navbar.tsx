@@ -48,6 +48,7 @@ export const Navbar = () => {
               as={IconButton}
               background="primary.light"
               _hover={{ backgroundColor: "primary.light" }}
+              _active={{ backgroundColor: "primary.light" }}
               rightIcon={<ChevronDownIcon />}
             >
               <Avatar

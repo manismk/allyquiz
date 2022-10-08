@@ -12,6 +12,7 @@ import {
   Text,
   Spinner,
   Avatar,
+  Tooltip,
 } from "@chakra-ui/react";
 import {
   collection,
@@ -107,19 +108,31 @@ export const Leaderboard = () => {
           <TableContainer>
             <Table variant="simple">
               <Thead>
-                <Tr>
-                  <Th>S.No</Th>
-                  <Th>Name</Th>
-                  <Th>Score</Th>
-                  <Th>Test Name</Th>
-                  <Th>Test Taken Time</Th>
+                <Tr textAlign="center">
+                  <Th textAlign="center" px="1rem">
+                    S.No
+                  </Th>
+                  <Th textAlign="center" px="1rem">
+                    Name
+                  </Th>
+                  <Th textAlign="center" px="1rem">
+                    Score
+                  </Th>
+                  <Th textAlign="center" px="1rem">
+                    Test Name
+                  </Th>
+                  <Th textAlign="center" px="1rem">
+                    Test Taken Time
+                  </Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {scoreData.scores.map((test, index) => (
                   <Tr key={index}>
-                    <Td>{index + 1}</Td>
-                    <Td>
+                    <Td px="1rem" textAlign="center">
+                      {index + 1}
+                    </Td>
+                    <Td px="1rem" textAlign="center">
                       <Link to={`/user/${test.user.uid}`}>
                         <Flex gap="5px" alignItems="center">
                           <Avatar
@@ -131,11 +144,23 @@ export const Leaderboard = () => {
                         </Flex>
                       </Link>
                     </Td>
-                    <Td>{test.score}</Td>
+                    <Td px="1rem" textAlign="center">
+                      {test.score}
+                    </Td>
 
-                    <Td>{test.quiz.name}</Td>
-                    <Td>
-                      {moment(test.timeTaken).format("DD/MM/YY,h:mm:ss a")}
+                    <Td px="1rem" textAlign="center">
+                      {test.quiz.name}
+                    </Td>
+                    <Td px="1rem" textAlign="center">
+                      <Tooltip
+                        label={moment(test.timeTaken).format(
+                          "DD/MM/YY,h:mm:ss a"
+                        )}
+                        hasArrow
+                        placement="top"
+                      >
+                        <Box>{moment(test.timeTaken).format("DD-MMM-YY")}</Box>
+                      </Tooltip>
                     </Td>
                   </Tr>
                 ))}
