@@ -4,7 +4,6 @@ import {
   createStandaloneToast,
   Heading,
   Image,
-  useColorMode,
 } from "@chakra-ui/react";
 import loginSvg from "../../assets/login.svg";
 import googleSvg from "../../assets/google.svg";
