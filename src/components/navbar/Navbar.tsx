@@ -9,6 +9,7 @@ import {
   MenuList,
   Text,
   Tooltip,
+  useColorMode,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
@@ -20,7 +21,7 @@ import { auth } from "../../firebase";
 
 export const Navbar = () => {
   const user = useAppSelector((state) => state.auth.user);
-
+  const { colorMode } = useColorMode();
   return (
     <Flex
       bg="primary.dark"
@@ -60,12 +61,17 @@ export const Navbar = () => {
 
             <MenuList>
               <Link to={`/leaderboard`}>
-                <MenuItem>Leaderboard</MenuItem>
+                <MenuItem color={colorMode === "dark" ? "white" : "black"}>
+                  Leaderboard
+                </MenuItem>
               </Link>
               <Link to={`/user/${user.uid}`}>
-                <MenuItem>My profile</MenuItem>
+                <MenuItem color={colorMode === "dark" ? "white" : "black"}>
+                  My profile
+                </MenuItem>
               </Link>
               <MenuItem
+                color={colorMode === "dark" ? "white" : "black"}
                 onClick={() => {
                   signOut(auth)
                     .then(() => {

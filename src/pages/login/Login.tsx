@@ -4,6 +4,7 @@ import {
   createStandaloneToast,
   Heading,
   Image,
+  useColorMode,
 } from "@chakra-ui/react";
 import loginSvg from "../../assets/login.svg";
 import googleSvg from "../../assets/google.svg";
@@ -49,6 +50,7 @@ export const Login = () => {
         isLoading={isLoading}
         backgroundColor="primary.light"
         _hover={{ background: "primary.dark" }}
+        color="black"
         leftIcon={<Image src={googleSvg} w="1.5rem"></Image>}
         onClick={() => dispatch(handleGoogleSignIn({ navigate, location }))}
       >
