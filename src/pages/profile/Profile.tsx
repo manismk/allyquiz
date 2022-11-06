@@ -124,7 +124,9 @@ export const Profile = () => {
                 {userData.tests.map((test, index) => (
                   <Tr key={test.sid}>
                     <Td textAlign="center">{index + 1}</Td>
-                    <Td textAlign="center">{test.quiz.name}</Td>
+                    <Td textAlign="center">
+                      {test.quiz.name.replace("Ally", "A11y")}
+                    </Td>
                     <Td textAlign="center">{test.score}</Td>
                     <Td textAlign="center">
                       <Tooltip

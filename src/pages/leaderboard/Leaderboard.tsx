@@ -149,7 +149,7 @@ export const Leaderboard = () => {
                     </Td>
 
                     <Td px="1rem" textAlign="center">
-                      {test.quiz.name}
+                      {test.quiz.name.replace("Ally", "A11y")}
                     </Td>
                     <Td px="1rem" textAlign="center">
                       <Tooltip

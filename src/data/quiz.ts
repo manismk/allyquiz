@@ -27,7 +27,7 @@ export const Quizes: quizesType = {
     {
       name: "ally-basic",
       path: "/ally-basic",
-      spacedName: "Ally Basic",
+      spacedName: "A11y Basic",
       shortName: "basic",
       questions: [
         {
@@ -170,7 +170,7 @@ export const Quizes: quizesType = {
       name: "ally-pro",
       path: "/ally-pro",
       shortName: "pro",
-      spacedName: "Ally Pro",
+      spacedName: "A11y Pro",
       questions: [
         {
           questionNo: 1,
